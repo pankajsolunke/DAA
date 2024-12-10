@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void heapifyUp(vector<int>& heap, int index) {
+    int parent = (index - 1) / 2;
+
+    while (index > 0 && heap[index] > heap[parent]) {
+        swap(heap[index], heap[parent]);
+        index = parent;
+        parent = (index - 1) / 2;
+    }
+}
+
+void insert(vector<int>& heap, int value) {
+    heap.push_back(value); 
+    heapifyUp(heap, heap.size() - 1);
+}
+
+void display(const vector<int>& heap) {
+    for (int i : heap) {
+        cout << i << " ";
+    }
+    cout << endl;
+}
+
+int main() {
+    vector<int> maxHeap; 
+    int choice, value;
+
+    do {
+        cout << "\nMenu:\n";
+        cout << "1. Insert an element\n";
+        cout << "2. Display the heap\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter the value to insert: ";
+                cin >> value;
+                insert(maxHeap, value);
+                break;
+            case 2:
+                cout << "Max Heap: ";
+                display(maxHeap);
+                break;
+            case 3:
+                cout << "Exiting...\n";
+                break;
+            default:
+                cout << "Invalid choice! Try again.\n";
+        }
+    } while (choice != 3);
+
+    return 0;
+}
